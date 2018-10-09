@@ -5,6 +5,7 @@ module objects {
         private _height:number;
         private _halfWidth:number;
         private _halfHeight:number;
+        private _isCenter:boolean;
 
         // public properties
         get Width():number {
@@ -55,6 +56,12 @@ module objects {
         constructor(labelString:string, fontSize:string, fontFamily:string, fontColor:string, x:number = 0, y:number = 0, isCenter:boolean = false) {
             super(labelString, fontSize + " " + fontFamily, fontColor);
 
+            this._isCenter = isCenter;
+            this.x = x;
+            this.y = y;
+
+            this.Update();
+/*
             this.Width = this.getMeasuredWidth();
             this.Height = this.getMeasuredHeight();
 
@@ -62,13 +69,24 @@ module objects {
                 this.regX = this.HalfWidth;
                 this.regY = this.HalfHeight;
             }
-
-            this.x = x;
-            this.y = y;
+*/
         }
         
         // private methods
         
         // public methods
+        public Update():void {
+            this.Width = this.getMeasuredWidth();
+            this.Height = this.getMeasuredHeight();
+            if(this._isCenter) {
+                this.regX = this.HalfWidth;
+                this.regY = this.HalfHeight;
+            }
+        }
+
+        public SetText(labelString:string) {
+            this.text = labelString;
+            this.Update();
+        }
     }
 }

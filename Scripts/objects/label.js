@@ -14,14 +14,19 @@ var objects;
          */
         constructor(labelString, fontSize, fontFamily, fontColor, x = 0, y = 0, isCenter = false) {
             super(labelString, fontSize + " " + fontFamily, fontColor);
-            this.Width = this.getMeasuredWidth();
-            this.Height = this.getMeasuredHeight();
-            if (isCenter) {
-                this.regX = this.HalfWidth;
-                this.regY = this.HalfHeight;
-            }
+            this._isCenter = isCenter;
             this.x = x;
             this.y = y;
+            this.Update();
+            /*
+                        this.Width = this.getMeasuredWidth();
+                        this.Height = this.getMeasuredHeight();
+            
+                        if(isCenter) {
+                            this.regX = this.HalfWidth;
+                            this.regY = this.HalfHeight;
+                        }
+            */
         }
         // public properties
         get Width() {
@@ -49,6 +54,20 @@ var objects;
         }
         set HalfHeight(newValue) {
             this._halfHeight = newValue;
+        }
+        // private methods
+        // public methods
+        Update() {
+            this.Width = this.getMeasuredWidth();
+            this.Height = this.getMeasuredHeight();
+            if (this._isCenter) {
+                this.regX = this.HalfWidth;
+                this.regY = this.HalfHeight;
+            }
+        }
+        SetText(labelString) {
+            this.text = labelString;
+            this.Update();
         }
     }
     objects.Label = Label;
