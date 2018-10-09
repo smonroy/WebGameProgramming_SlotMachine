@@ -19,12 +19,13 @@ module scenes {
         private _button_1off:objects.Button;
         private _button_5off:objects.Button;
         private _button_10off:objects.Button;
-
+        
         private _button_0on:objects.Button;
         private _button_1on:objects.Button;
         private _button_5on:objects.Button;
         private _button_10on:objects.Button;
-
+        private _button_spin:objects.Button;
+        
         // contructors
         constructor() {
             super();
@@ -61,6 +62,12 @@ module scenes {
             this._button_1on.visible = this._playerMoney >= 1;
             this._button_5on.visible = this._playerMoney >= 5;
             this._button_10on.visible = this._playerMoney >= 10;
+        }
+
+        private _spin():void {
+            this._reel1.Spin();
+            this._reel2.Spin();
+            this._reel3.Spin();
         }
 
         // public methods
@@ -113,7 +120,6 @@ module scenes {
             this._button_10off = new objects.Button("button10off", 350, 419, true);
             this.addChild(this._button_10off);
 
-
             // on buttons
             this._button_0on = new objects.Button("button0on", 170, 419, true);
             this._button_0on.on("click", ()=>{ this._resetBet(); });
@@ -128,6 +134,11 @@ module scenes {
             this._button_10on = new objects.Button("button10on", 350, 419, true);
             this._button_10on.on("click", ()=>{ this._addBet(10); });
             this.addChild(this._button_10on);
+
+            this._button_spin = new objects.Button("buttonSpin", 484, 419, true);
+            this._button_spin.on("click", ()=>{ this._spin(); });
+            this.addChild(this._button_spin);
+
 
        };
     }

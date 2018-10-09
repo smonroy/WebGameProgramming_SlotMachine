@@ -33,6 +33,11 @@ var scenes;
             this._button_5on.visible = this._playerMoney >= 5;
             this._button_10on.visible = this._playerMoney >= 10;
         }
+        _spin() {
+            this._reel1.Spin();
+            this._reel2.Spin();
+            this._reel3.Spin();
+        }
         // public methods
         Start() {
             this.Reset();
@@ -93,6 +98,9 @@ var scenes;
             this._button_10on = new objects.Button("button10on", 350, 419, true);
             this._button_10on.on("click", () => { this._addBet(10); });
             this.addChild(this._button_10on);
+            this._button_spin = new objects.Button("buttonSpin", 484, 419, true);
+            this._button_spin.on("click", () => { this._spin(); });
+            this.addChild(this._button_spin);
         }
         ;
     }
