@@ -2,7 +2,7 @@ module scenes {
     export class Start extends objects.Scene{
 
         private _welcomeLabel:objects.Label;
-        private _ocean:objects.Ocean;
+        private _backgound:objects.Background;
         private _startButton:objects.Button;
 
         constructor() {
@@ -12,14 +12,14 @@ module scenes {
         }
 
         public Start():void {
-            this._ocean = new objects.Ocean();
-            this._welcomeLabel = new objects.Label("Mail Pilot", "60px", "Consolas", "#FFFF00", 320, 240, true);
+            this._backgound = new objects.Background();
+            this._welcomeLabel = new objects.Label("Slot Machine", "60px", "Consolas", "#000000", 320, 240, true);
             this._startButton = new objects.Button("startButton", 320, 360, true);
             this.Main();
         };
 
         public Update():void {
-            this._ocean.Update();
+            this._backgound.Update();
         };
 
         public Destroy():void {
@@ -31,7 +31,7 @@ module scenes {
         };
 
         public Main():void {
-            this.addChild(this._ocean);
+            this.addChild(this._backgound);
     
             this.addChild(this._welcomeLabel);
     

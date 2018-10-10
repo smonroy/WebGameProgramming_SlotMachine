@@ -6,14 +6,14 @@ var scenes;
             this.Start();
         }
         Start() {
-            this._ocean = new objects.Ocean();
-            this._welcomeLabel = new objects.Label("Mail Pilot", "60px", "Consolas", "#FFFF00", 320, 240, true);
+            this._backgound = new objects.Background();
+            this._welcomeLabel = new objects.Label("Slot Machine", "60px", "Consolas", "#000000", 320, 240, true);
             this._startButton = new objects.Button("startButton", 320, 360, true);
             this.Main();
         }
         ;
         Update() {
-            this._ocean.Update();
+            this._backgound.Update();
         }
         ;
         Destroy() {
@@ -24,7 +24,7 @@ var scenes;
         }
         ;
         Main() {
-            this.addChild(this._ocean);
+            this.addChild(this._backgound);
             this.addChild(this._welcomeLabel);
             this.addChild(this._startButton);
             this._startButton.on("click", () => {

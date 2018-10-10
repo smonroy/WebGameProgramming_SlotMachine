@@ -7,6 +7,7 @@
     let currentScene;
     let currentState;
     let assetManifest = [
+        { id: "background", src: "./Assets/Images/background.jpg" },
         { id: "startButton", src: "./Assets/Images/startButton.png" },
         { id: "mask", src: "./Assets/Images/mask.png" },
         { id: "ocean", src: "./Assets/Images/ocean.gif" },
