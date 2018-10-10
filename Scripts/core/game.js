@@ -27,6 +27,7 @@
         { id: "button10", src: "./Assets/Images/button10.png" },
         { id: "buttonSpin", src: "./Assets/Images/buttonSpin.png" },
         { id: "buttonReset", src: "./Assets/Images/buttonReset.png" },
+        { id: "buttonExit", src: "./Assets/Images/buttonExit.png" },
     ];
     function Init() {
         assetManager = new createjs.LoadQueue();

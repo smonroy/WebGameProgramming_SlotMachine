@@ -144,7 +144,6 @@ var scenes;
             // buttons
             this._button_0 = new objects.Button("button0", 170, 419, true);
             this._button_0.on("click", () => { this._resetBet(); });
-            //            this._button_0.SetEnable(false);
             this.addChild(this._button_0);
             this._button_1 = new objects.Button("button1", 230, 419, true);
             this._button_1.on("click", () => { this._addBet(1); });
@@ -157,11 +156,13 @@ var scenes;
             this.addChild(this._button_10);
             this._button_spin = new objects.Button("buttonSpin", 484, 419, true);
             this._button_spin.on("click", () => { this._spin(); });
-            //            this._button_spin.SetEnable(false);
             this.addChild(this._button_spin);
             this._button_reset = new objects.Button("buttonReset", 498, 83, true);
             this._button_reset.on("click", () => { this.Reset(); });
             this.addChild(this._button_reset);
+            this._button_exit = new objects.Button("buttonExit", 153, 83, true);
+            this._button_exit.on("click", () => { managers.Game.currentState = config.Scene.START; });
+            this.addChild(this._button_exit);
         }
         ;
     }
