@@ -8,35 +8,99 @@ var scenes;
         }
         // private methods
         _addBet(bet) {
-            if (this._playerMoney >= bet) {
+            if (this._playerMoney >= this._playerBet + bet) {
                 this._playerBet += bet;
-                this._playerMoney -= bet;
-                this._refreshLabels();
-                this._refreshButtons();
+                this._refreshLabelsButtons();
             }
+        }
+        _addPlayerMoney(cant) {
+            this._playerMoney += cant;
+            this._refreshLabelsButtons();
         }
         _resetBet() {
             if (this._playerBet > 0) {
-                this._playerMoney += this._playerBet;
                 this._playerBet = 0;
-                this._refreshLabels();
-                this._refreshButtons();
+                this._refreshLabelsButtons();
             }
         }
-        _refreshLabels() {
+        _refreshLabelsButtons() {
             this._label_Bet.SetText(this._playerBet.toString());
             this._label_Money.SetText(this._playerMoney.toString());
-        }
-        _refreshButtons() {
-            this._button_0on.visible = this._playerBet > 0;
-            this._button_1on.visible = this._playerMoney >= 1;
-            this._button_5on.visible = this._playerMoney >= 5;
-            this._button_10on.visible = this._playerMoney >= 10;
+            this._label_Winning.SetText((this._winningMoney > 0 ? "+" : "") + this._winningMoney.toString());
+            this._button_0.SetEnable(this._playerBet > 0);
+            this._button_1.SetEnable(this._playerMoney >= this._playerBet + 1);
+            this._button_5.SetEnable(this._playerMoney >= this._playerBet + 5);
+            this._button_10.SetEnable(this._playerMoney >= this._playerBet + 10);
+            this._button_spin.SetEnable(this._playerBet > 0);
         }
         _spin() {
             this._reel1.Spin();
             this._reel2.Spin();
             this._reel3.Spin();
+            this._winningMoney = this._getWinningMoney();
+            this._addPlayerMoney(this._winningMoney);
+            if (this._playerMoney < this._playerBet) {
+                this._playerBet = this._playerMoney;
+            }
+            this._refreshLabelsButtons();
+        }
+        _getWinningMoney() {
+            let symbols = [0, 0, 0, 0, 0, 0, 0, 0];
+            let winning = -this._playerBet;
+            symbols[this._reel1.symbol]++;
+            symbols[this._reel2.symbol]++;
+            symbols[this._reel3.symbol]++;
+            if (symbols[config.SYMBOLS.blank_0] == 0) {
+                if (symbols[config.SYMBOLS.grape_1] == 3) {
+                    winning = this._playerBet * 10;
+                }
+                else if (symbols[config.SYMBOLS.banana_2] == 3) {
+                    winning = this._playerBet * 20;
+                }
+                else if (symbols[config.SYMBOLS.orange_3] == 3) {
+                    winning = this._playerBet * 30;
+                }
+                else if (symbols[config.SYMBOLS.cherry_4] == 3) {
+                    winning = this._playerBet * 40;
+                }
+                else if (symbols[config.SYMBOLS.bar_5] == 3) {
+                    winning = this._playerBet * 50;
+                }
+                else if (symbols[config.SYMBOLS.bell_6] == 3) {
+                    winning = this._playerBet * 75;
+                }
+                else if (symbols[config.SYMBOLS.seven_7] == 3) {
+                    winning = this._playerBet * 100;
+                }
+                else if (symbols[config.SYMBOLS.grape_1] == 2) {
+                    winning = this._playerBet * 2;
+                }
+                else if (symbols[config.SYMBOLS.banana_2] == 2) {
+                    winning = this._playerBet * 2;
+                }
+                else if (symbols[config.SYMBOLS.orange_3] == 2) {
+                    winning = this._playerBet * 3;
+                }
+                else if (symbols[config.SYMBOLS.cherry_4] == 2) {
+                    winning = this._playerBet * 4;
+                }
+                else if (symbols[config.SYMBOLS.bar_5] == 2) {
+                    winning = this._playerBet * 5;
+                }
+                else if (symbols[config.SYMBOLS.bell_6] == 2) {
+                    winning = this._playerBet * 10;
+                }
+                else if (symbols[config.SYMBOLS.seven_7] == 2) {
+                    winning = this._playerBet * 20;
+                }
+                else if (symbols[config.SYMBOLS.seven_7] == 1) {
+                    winning = this._playerBet * 5;
+                }
+                else {
+                    winning = this._playerBet * 1;
+                }
+            }
+            return winning;
         }
         // public methods
         Start() {
@@ -55,6 +119,7 @@ var scenes;
             this._playerMoney = 500;
             this._jackpot = 5000;
             this._playerBet = 0;
+            this._winningMoney = 0;
         }
         ;
         Main() {
@@ -70,36 +135,28 @@ var scenes;
             this.addChild(this._label_Money);
             this._label_Bet = new objects.Label(this._playerBet.toString(), "28px", "Consolas", "#000000", 325, 311, true);
             this.addChild(this._label_Bet);
-            this._label_Jackpot = new objects.Label(this._jackpot.toString(), "28px", "Consolas", "#000000", 400, 311, true);
-            this.addChild(this._label_Jackpot);
+            this._label_Winning = new objects.Label(this._winningMoney.toString(), "28px", "Consolas", "#000000", 400, 311, true);
+            this.addChild(this._label_Winning);
             // slot machine skin
             this._mask = new objects.Mask();
             this.addChild(this._mask);
-            // off buttons
-            this._button_0off = new objects.Button("button0off", 170, 419, true);
-            this.addChild(this._button_0off);
-            this._button_1off = new objects.Button("button1off", 230, 419, true);
-            this.addChild(this._button_1off);
-            this._button_5off = new objects.Button("button5off", 290, 419, true);
-            this.addChild(this._button_5off);
-            this._button_10off = new objects.Button("button10off", 350, 419, true);
-            this.addChild(this._button_10off);
-            // on buttons
-            this._button_0on = new objects.Button("button0on", 170, 419, true);
-            this._button_0on.on("click", () => { this._resetBet(); });
-            this._button_0on.visible = false;
-            this.addChild(this._button_0on);
-            this._button_1on = new objects.Button("button1on", 230, 419, true);
-            this._button_1on.on("click", () => { this._addBet(1); });
-            this.addChild(this._button_1on);
-            this._button_5on = new objects.Button("button5on", 290, 419, true);
-            this._button_5on.on("click", () => { this._addBet(5); });
-            this.addChild(this._button_5on);
-            this._button_10on = new objects.Button("button10on", 350, 419, true);
-            this._button_10on.on("click", () => { this._addBet(10); });
-            this.addChild(this._button_10on);
+            // buttons
+            this._button_0 = new objects.Button("button0", 170, 419, true);
+            this._button_0.on("click", () => { this._resetBet(); });
+            this._button_0.SetEnable(false);
+            this.addChild(this._button_0);
+            this._button_1 = new objects.Button("button1", 230, 419, true);
+            this._button_1.on("click", () => { this._addBet(1); });
+            this.addChild(this._button_1);
+            this._button_5 = new objects.Button("button5", 290, 419, true);
+            this._button_5.on("click", () => { this._addBet(5); });
+            this.addChild(this._button_5);
+            this._button_10 = new objects.Button("button10", 350, 419, true);
+            this._button_10.on("click", () => { this._addBet(10); });
+            this.addChild(this._button_10);
             this._button_spin = new objects.Button("buttonSpin", 484, 419, true);
             this._button_spin.on("click", () => { this._spin(); });
+            this._button_spin.SetEnable(false);
             this.addChild(this._button_spin);
         }
         ;

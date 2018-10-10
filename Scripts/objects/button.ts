@@ -5,6 +5,7 @@ module objects {
         private _height:number;
         private _halfWidth:number;
         private _halfHeight:number;
+        private _enable:boolean
 
         // public properties
         get Width():number {
@@ -56,19 +57,38 @@ module objects {
             this.x = x;
             this.y = y;
 
+            this._enable = true;
+
             this.on("mouseover", this._over);
             this.on("mouseout", this._out);
         }
 
         // private methods
         private _over(event:createjs.MouseEvent):void {
-            this.alpha = 0.7;
+            if(this._enable) {
+                this.alpha = 0.7;
+            }
         }
 
         private _out(event:createjs.MouseEvent):void {
-            this.alpha = 1.0;
+            if(this._enable) {
+                this.alpha = 1.0;
+            }
         }
 
         // public methods
+        public SetEnable(enable:boolean):void {
+            if(enable) { 
+                if(!this._enable) {
+                    this._enable = true;
+                    this.alpha = 1;
+                }
+            } else {
+                if(this._enable) {
+                    this._enable = false;
+                    this.alpha = 0.3;
+                }    
+            }
+        }
     }
 }

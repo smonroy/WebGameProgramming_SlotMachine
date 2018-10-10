@@ -12,6 +12,7 @@ var objects;
             }
             this.x = x;
             this.y = y;
+            this._enable = true;
             this.on("mouseover", this._over);
             this.on("mouseout", this._out);
         }
@@ -44,10 +45,29 @@ var objects;
         }
         // private methods
         _over(event) {
-            this.alpha = 0.7;
+            if (this._enable) {
+                this.alpha = 0.7;
+            }
         }
         _out(event) {
-            this.alpha = 1.0;
+            if (this._enable) {
+                this.alpha = 1.0;
+            }
+        }
+        // public methods
+        SetEnable(enable) {
+            if (enable) {
+                if (!this._enable) {
+                    this._enable = true;
+                    this.alpha = 1;
+                }
+            }
+            else {
+                if (this._enable) {
+                    this._enable = false;
+                    this.alpha = 0.3;
+                }
+            }
         }
     }
     objects.Button = Button;

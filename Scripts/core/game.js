@@ -21,15 +21,11 @@
         { id: "banana", src: "./Assets/Images/banana.png" },
         { id: "grape", src: "./Assets/Images/grape.png" },
         { id: "blank", src: "./Assets/Images/blank.png" },
-        { id: "button0on", src: "./Assets/Images/button0on.png" },
-        { id: "button1on", src: "./Assets/Images/button1on.png" },
-        { id: "button5on", src: "./Assets/Images/button5on.png" },
-        { id: "button10on", src: "./Assets/Images/button10on.png" },
+        { id: "button0", src: "./Assets/Images/button0.png" },
+        { id: "button1", src: "./Assets/Images/button1.png" },
+        { id: "button5", src: "./Assets/Images/button5.png" },
+        { id: "button10", src: "./Assets/Images/button10.png" },
         { id: "buttonSpin", src: "./Assets/Images/buttonSpin.png" },
-        { id: "button0off", src: "./Assets/Images/button0off.png" },
-        { id: "button1off", src: "./Assets/Images/button1off.png" },
-        { id: "button5off", src: "./Assets/Images/button5off.png" },
-        { id: "button10off", src: "./Assets/Images/button10off.png" },
     ];
     function Init() {
         assetManager = new createjs.LoadQueue();
