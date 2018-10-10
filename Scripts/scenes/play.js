@@ -16,6 +16,9 @@ var scenes;
         _addPlayerMoney(cant) {
             this._playerMoney += cant;
             this._refreshLabelsButtons();
+            if (this._playerMoney <= 0) {
+                managers.Game.currentState = config.Scene.OVER;
+            }
         }
         _resetBet() {
             if (this._playerBet > 0) {

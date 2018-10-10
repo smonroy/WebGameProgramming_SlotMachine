@@ -31,6 +31,7 @@
         {id:"buttonSpin", src:"./Assets/Images/buttonSpin.png"},
         {id:"buttonReset", src:"./Assets/Images/buttonReset.png"},
         {id:"buttonExit", src:"./Assets/Images/buttonExit.png"},
+        {id:"backgroundLost", src:"./Assets/Images/lost.jpg"},
     ];
 
     function Init():void {
@@ -82,6 +83,9 @@
             break;
             case config.Scene.PLAY:
             currentScene = new scenes.Play();
+            break;
+            case config.Scene.OVER:
+            currentScene = new scenes.Over();
             break;
         }
 

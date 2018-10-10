@@ -43,6 +43,9 @@ module scenes {
         private _addPlayerMoney(cant:number):void {
             this._playerMoney += cant;
             this._refreshLabelsButtons();
+            if(this._playerMoney <= 0) {
+                managers.Game.currentState = config.Scene.OVER;
+            }
         }
 
         private _resetBet():void {
