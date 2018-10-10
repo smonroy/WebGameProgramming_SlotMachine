@@ -104,8 +104,8 @@ var scenes;
         }
         // public methods
         Start() {
-            this.Reset();
             this.Main();
+            this.Reset();
         }
         ;
         Update() {
@@ -120,6 +120,7 @@ var scenes;
             this._jackpot = 5000;
             this._playerBet = 0;
             this._winningMoney = 0;
+            this._refreshLabelsButtons();
         }
         ;
         Main() {
@@ -131,11 +132,11 @@ var scenes;
             this._reel3 = new objects.Reel(391, 171);
             this.addChild(this._reel3);
             // labels object
-            this._label_Money = new objects.Label(this._playerMoney.toString(), "28px", "Consolas", "#000000", 225, 311, true);
+            this._label_Money = new objects.Label("", "28px", "Consolas", "#000000", 225, 311, true);
             this.addChild(this._label_Money);
-            this._label_Bet = new objects.Label(this._playerBet.toString(), "28px", "Consolas", "#000000", 325, 311, true);
+            this._label_Bet = new objects.Label("", "28px", "Consolas", "#000000", 325, 311, true);
             this.addChild(this._label_Bet);
-            this._label_Winning = new objects.Label(this._winningMoney.toString(), "28px", "Consolas", "#000000", 400, 311, true);
+            this._label_Winning = new objects.Label("", "28px", "Consolas", "#000000", 400, 311, true);
             this.addChild(this._label_Winning);
             // slot machine skin
             this._mask = new objects.Mask();
@@ -143,7 +144,7 @@ var scenes;
             // buttons
             this._button_0 = new objects.Button("button0", 170, 419, true);
             this._button_0.on("click", () => { this._resetBet(); });
-            this._button_0.SetEnable(false);
+            //            this._button_0.SetEnable(false);
             this.addChild(this._button_0);
             this._button_1 = new objects.Button("button1", 230, 419, true);
             this._button_1.on("click", () => { this._addBet(1); });
@@ -156,8 +157,11 @@ var scenes;
             this.addChild(this._button_10);
             this._button_spin = new objects.Button("buttonSpin", 484, 419, true);
             this._button_spin.on("click", () => { this._spin(); });
-            this._button_spin.SetEnable(false);
+            //            this._button_spin.SetEnable(false);
             this.addChild(this._button_spin);
+            this._button_reset = new objects.Button("buttonReset", 498, 83, true);
+            this._button_reset.on("click", () => { this.Reset(); });
+            this.addChild(this._button_reset);
         }
         ;
     }

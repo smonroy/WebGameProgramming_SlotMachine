@@ -28,6 +28,7 @@
         {id:"button5", src:"./Assets/Images/button5.png"},
         {id:"button10", src:"./Assets/Images/button10.png"},
         {id:"buttonSpin", src:"./Assets/Images/buttonSpin.png"},
+        {id:"buttonReset", src:"./Assets/Images/buttonReset.png"},
     ];
 
     function Init():void {
