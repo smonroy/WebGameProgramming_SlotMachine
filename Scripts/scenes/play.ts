@@ -1,23 +1,35 @@
+/**
+ * Author name: Sergio Monroy Escalnte
+ * Student number: 300930580
+ * Creation Date: Oct 09, 2018
+ * Description: Playmode and main scene for the slot machine game.
+ * Revision History: https://github.com/smonroy/WebGameProgramming_SlotMachine
+ */
 module scenes {
     export class Play extends objects.Scene{
         // private variables
+
+        // objects
         private _background:objects.BackgroundPlay;
         private _mask:objects.Mask;
         private _reel1:objects.Reel;
         private _reel2:objects.Reel;
         private _reel3:objects.Reel;
 
+        // money variables
         private _playerMoney:number;
         private _playerBet:number;
         private _jackpot:number;
         private _winningMoney:number;
         private _wonjackpot:boolean;
 
+        // labels
         private _label_Money:objects.Label;
         private _label_Bet:objects.Label;
         private _label_Winning:objects.Label;
         private _label_Jackpot:objects.Label;
         
+        // buttons
         private _button_0:objects.Button;
         private _button_1:objects.Button;
         private _button_5:objects.Button;
@@ -34,13 +46,29 @@ module scenes {
         }
 
         // private methods
+
+        /**
+         * Add money to the player bet
+         *
+         * @private
+         * @param {number} bet
+         * @memberof Play
+         */
         private _addBet(bet:number):void {
             if(this._playerMoney >= this._playerBet + bet) {
+                createjs.Sound.play("betSound");
                 this._playerBet += bet;
                 this._refreshLabelsButtons();
             }
         }
 
+        /**
+         * Add or subtract money to the player and check the lose condition
+         *
+         * @private
+         * @param {number} cant
+         * @memberof Play
+         */
         private _addPlayerMoney(cant:number):void {
             this._playerMoney += cant;
             this._refreshLabelsButtons();
@@ -49,6 +77,12 @@ module scenes {
             }
         }
 
+        /**
+         * Set the player bet to zero
+         *
+         * @private
+         * @memberof Play
+         */
         private _resetBet():void {
             if(this._playerBet > 0){
                 this._playerBet = 0;
@@ -56,6 +90,12 @@ module scenes {
             }
         }
 
+        /**
+         * Refresh all labels' text and colors, and set enable or disable all the buttons
+         *
+         * @private
+         * @memberof Play
+         */
         private _refreshLabelsButtons() {
             this._label_Bet.SetText(this._playerBet.toString());
             this._label_Money.SetText(this._playerMoney.toString());
@@ -70,8 +110,16 @@ module scenes {
             this._button_spin.SetEnable(this._playerBet > 0);
         }
 
+        /**
+         * Spin the reels and modify the player money with the result of the reels. 
+         * Finale it adjusts the player's bet if it is not enough to the next spin.
+         *
+         * @private
+         * @memberof Play
+         */
         private _spin():void {
             if(this._playerBet > 0) {
+                createjs.Sound.play("spinSound");
                 this._reel1.Spin();
                 this._reel2.Spin();
                 this._reel3.Spin();
@@ -84,10 +132,18 @@ module scenes {
             }
         }
 
+        /**
+         * Calculate and return the jackpot reward. If there is reweards, it updates the jackpot amount.
+         *
+         * @private
+         * @returns {number}
+         * @memberof Play
+         */
         private _getJackpotMoney():number {
             let rnd1 = Math.floor((Math.random() * 51) + 1);
             let rnd2 = Math.floor((Math.random() * 51) + 1);
             if(rnd1 == rnd2) {
+                createjs.Sound.play("jackpotSound");
                 let jackpotMoney:number = this._jackpot;
                 this._jackpot = 1000;
                 this._wonjackpot = true;
@@ -98,6 +154,13 @@ module scenes {
             }
         }
 
+        /**
+         * Calculate and return the reel mach reward.
+         *
+         * @private
+         * @returns {number}
+         * @memberof Play
+         */
         private _getWinningMoney():number {
             let symbols:number[] = [0,0,0,0,0,0,0,0];
             let winning:number = -this._playerBet;
@@ -105,6 +168,7 @@ module scenes {
             symbols[this._reel2.symbol]++;
             symbols[this._reel3.symbol]++;
             if(symbols[config.SYMBOLS.blank_0] == 0) {
+                createjs.Sound.play("winSound");
                 if(symbols[config.SYMBOLS.grape_1] == 3) {
                     winning = this._playerBet * 10;
                 } else if(symbols[config.SYMBOLS.banana_2] == 3) {

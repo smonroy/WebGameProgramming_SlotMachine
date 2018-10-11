@@ -1,3 +1,11 @@
+/**
+ * Author name: Sergio Monroy Escalnte
+ * Student number: 300930580
+ * Creation Date: Oct 09, 2018
+ * Description: Web slot machine game 
+ * Revision History: https://github.com/smonroy/WebGameProgramming_SlotMachine
+ */
+
 // IIFE - Immediately Invoked Function Expression
 (function(){
     // game variables
@@ -15,9 +23,10 @@
         {id:"startButton", src:"./Assets/Images/startButton.png"},
         {id:"mask", src:"./Assets/Images/mask.png"},
         {id:"ocean", src:"./Assets/Images/ocean.gif"},
-        {id:"engineSound", src:"./Assets/audio/engine.ogg"},
-        {id:"thunderSound", src:"./Assets/audio/thunder.ogg"},
-        {id:"yaySound", src:"./Assets/audio/yay.ogg"},
+        {id:"betSound", src:"./Assets/audio/bet.mp3"},
+        {id:"spinSound", src:"./Assets/audio/spin.mp3"},
+        {id:"winSound", src:"./Assets/audio/win.mp3"},
+        {id:"jackpotSound", src:"./Assets/audio/jackpot.mp3"},
         {id:"seven", src:"./Assets/Images/seven.png"},
         {id:"bar", src:"./Assets/Images/bar.png"},
         {id:"bell", src:"./Assets/Images/bell.png"},
@@ -45,7 +54,6 @@
     }
 
     function Start():void {
-        console.log(`%c Game Somewhat 3 Started`, "color:blue; font-size: 20px;");
         canvas = document.getElementsByTagName("canvas")[0];
         stage = new createjs.Stage(canvas);
         managers.Game.stage = stage;

@@ -1,5 +1,18 @@
+/**
+ * Author name: Sergio Monroy Escalnte
+ * Student number: 300930580
+ * Creation Date: Oct 09, 2018
+ * Description: Reel configuration arrays. The three arrays/enum shuld have the same number of elements and in the same order.
+ * Revision History: https://github.com/smonroy/WebGameProgramming_SlotMachine
+ */
 var config;
 (function (config) {
+    /**
+     * enum with all the possible symbols in the reels
+     *
+     * @export
+     * @enum {number}
+     */
     let SYMBOLS;
     (function (SYMBOLS) {
         SYMBOLS[SYMBOLS["blank_0"] = 0] = "blank_0";
@@ -11,6 +24,9 @@ var config;
         SYMBOLS[SYMBOLS["bell_6"] = 6] = "bell_6";
         SYMBOLS[SYMBOLS["seven_7"] = 7] = "seven_7";
     })(SYMBOLS = config.SYMBOLS || (config.SYMBOLS = {}));
+    /**
+     * All the symbols names. This names are used to make reference to the sprite file in the assets.
+     */
     config.SYMBOL_NAMES = [
         "blank",
         "grape",
@@ -21,6 +37,10 @@ var config;
         "bell",
         "seven"
     ];
+    /**
+     * This is the number of occurencies of each symbol.
+     * This number determine the probability of get each symbol in a single spin of the reel.
+     */
     config.SYMBOL_TIMES = [
         27,
         10,

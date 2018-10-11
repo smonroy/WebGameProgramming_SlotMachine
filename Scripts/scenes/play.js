@@ -1,3 +1,10 @@
+/**
+ * Author name: Sergio Monroy Escalnte
+ * Student number: 300930580
+ * Creation Date: Oct 09, 2018
+ * Description: Playmode and main scene for the slot machine game.
+ * Revision History: https://github.com/smonroy/WebGameProgramming_SlotMachine
+ */
 var scenes;
 (function (scenes) {
     class Play extends objects.Scene {
@@ -7,12 +14,27 @@ var scenes;
             this.Start();
         }
         // private methods
+        /**
+         * Add money to the player bet
+         *
+         * @private
+         * @param {number} bet
+         * @memberof Play
+         */
         _addBet(bet) {
             if (this._playerMoney >= this._playerBet + bet) {
+                createjs.Sound.play("betSound");
                 this._playerBet += bet;
                 this._refreshLabelsButtons();
             }
         }
+        /**
+         * Add or subtract money to the player and check the lose condition
+         *
+         * @private
+         * @param {number} cant
+         * @memberof Play
+         */
         _addPlayerMoney(cant) {
             this._playerMoney += cant;
             this._refreshLabelsButtons();
@@ -20,12 +42,24 @@ var scenes;
                 managers.Game.currentState = config.Scene.OVER;
             }
         }
+        /**
+         * Set the player bet to zero
+         *
+         * @private
+         * @memberof Play
+         */
         _resetBet() {
             if (this._playerBet > 0) {
                 this._playerBet = 0;
                 this._refreshLabelsButtons();
             }
         }
+        /**
+         * Refresh all labels' text and colors, and set enable or disable all the buttons
+         *
+         * @private
+         * @memberof Play
+         */
         _refreshLabelsButtons() {
             this._label_Bet.SetText(this._playerBet.toString());
             this._label_Money.SetText(this._playerMoney.toString());
@@ -39,8 +73,16 @@ var scenes;
             this._button_10.SetEnable(this._playerMoney >= this._playerBet + 10);
             this._button_spin.SetEnable(this._playerBet > 0);
         }
+        /**
+         * Spin the reels and modify the player money with the result of the reels.
+         * Finale it adjusts the player's bet if it is not enough to the next spin.
+         *
+         * @private
+         * @memberof Play
+         */
         _spin() {
             if (this._playerBet > 0) {
+                createjs.Sound.play("spinSound");
                 this._reel1.Spin();
                 this._reel2.Spin();
                 this._reel3.Spin();
@@ -52,10 +94,18 @@ var scenes;
                 this._refreshLabelsButtons();
             }
         }
+        /**
+         * Calculate and return the jackpot reward. If there is reweards, it updates the jackpot amount.
+         *
+         * @private
+         * @returns {number}
+         * @memberof Play
+         */
         _getJackpotMoney() {
             let rnd1 = Math.floor((Math.random() * 51) + 1);
             let rnd2 = Math.floor((Math.random() * 51) + 1);
             if (rnd1 == rnd2) {
+                createjs.Sound.play("jackpotSound");
                 let jackpotMoney = this._jackpot;
                 this._jackpot = 1000;
                 this._wonjackpot = true;
@@ -66,6 +116,13 @@ var scenes;
                 return 0;
             }
         }
+        /**
+         * Calculate and return the reel mach reward.
+         *
+         * @private
+         * @returns {number}
+         * @memberof Play
+         */
         _getWinningMoney() {
             let symbols = [0, 0, 0, 0, 0, 0, 0, 0];
             let winning = -this._playerBet;
@@ -73,6 +130,7 @@ var scenes;
             symbols[this._reel2.symbol]++;
             symbols[this._reel3.symbol]++;
             if (symbols[config.SYMBOLS.blank_0] == 0) {
+                createjs.Sound.play("winSound");
                 if (symbols[config.SYMBOLS.grape_1] == 3) {
                     winning = this._playerBet * 10;
                 }
