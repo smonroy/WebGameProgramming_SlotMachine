@@ -1,7 +1,7 @@
 module scenes {
     export class Play extends objects.Scene{
         // private variables
-
+        private _background:objects.BackgroundPlay;
         private _mask:objects.Mask;
         private _reel1:objects.Reel;
         private _reel2:objects.Reel;
@@ -59,6 +59,8 @@ module scenes {
             this._label_Bet.SetText(this._playerBet.toString());
             this._label_Money.SetText(this._playerMoney.toString());
             this._label_Winning.SetText((this._winningMoney > 0 ? "+":"") + this._winningMoney.toString());
+            this._label_Winning.color = this._winningMoney < 0 ? "#FF0000" : "#00FF00";
+            this._label_Jackpot.SetText("Jackpot: " + this._jackpot.toString());
             this._button_0.SetEnable(this._playerBet > 0);
             this._button_1.SetEnable(this._playerMoney >= this._playerBet + 1);
             this._button_5.SetEnable(this._playerMoney >= this._playerBet + 5);
@@ -67,15 +69,29 @@ module scenes {
         }
 
         private _spin():void {
-            this._reel1.Spin();
-            this._reel2.Spin();
-            this._reel3.Spin();
-            this._winningMoney = this._getWinningMoney();
-            this._addPlayerMoney(this._winningMoney);
-            if(this._playerMoney < this._playerBet) {
-                this._playerBet = this._playerMoney;
+            if(this._playerBet > 0) {
+                this._reel1.Spin();
+                this._reel2.Spin();
+                this._reel3.Spin();
+                this._winningMoney = this._getWinningMoney() + this._getJackpotMoney();
+                this._addPlayerMoney(this._winningMoney);
+                if(this._playerMoney < this._playerBet) {
+                    this._playerBet = this._playerMoney;
+                }
+                this._refreshLabelsButtons();
             }
-            this._refreshLabelsButtons();
+        }
+
+        private _getJackpotMoney():number {
+            let rnd1 = Math.floor((Math.random() * 51) + 1);
+            let rnd2 = Math.floor((Math.random() * 51) + 1);
+            if(rnd1 == rnd2) {
+                let jackpotMoney:number = this._jackpot;
+                this._jackpot = 1000;
+                return jackpotMoney;
+            } else {
+                return 0;
+            }
         }
 
         private _getWinningMoney():number {
@@ -140,10 +156,17 @@ module scenes {
             this._jackpot = 5000;
             this._playerBet = 0;
             this._winningMoney = 0;
+            this._reel1.Reset();
+            this._reel2.Reset();
+            this._reel3.Reset();
             this._refreshLabelsButtons();
         };
 
         public Main():void {
+            // background
+            this._background = new objects.BackgroundPlay();
+            this.addChild(this._background);
+
             // reels objects
             this._reel1 = new objects.Reel(162, 171);
             this.addChild(this._reel1);
@@ -153,12 +176,14 @@ module scenes {
             this.addChild(this._reel3);
             
             // labels object
-            this._label_Money = new objects.Label("", "28px", "Consolas", "#000000", 225, 311, true);
+            this._label_Money = new objects.Label("", "28px", "Consolas", "#00FF00", 225, 311, true);
             this.addChild(this._label_Money); 
-            this._label_Bet = new objects.Label("", "28px", "Consolas", "#000000", 325, 311, true);
+            this._label_Bet = new objects.Label("", "28px", "Consolas", "#FFFF00", 325, 311, true);
             this.addChild(this._label_Bet); 
-            this._label_Winning = new objects.Label("", "28px", "Consolas", "#000000", 400, 311, true);
+            this._label_Winning = new objects.Label("", "28px", "Consolas", "#FF0000", 400, 311, true);
             this.addChild(this._label_Winning); 
+            this._label_Jackpot = new objects.Label("", "28px", "Consolas", "#FFFF00", 325, 91, true);
+            this.addChild(this._label_Jackpot); 
 
             // slot machine skin
             this._mask = new objects.Mask();

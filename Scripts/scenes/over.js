@@ -6,7 +6,7 @@ var scenes;
             this.Start();
         }
         Start() {
-            this._background = new objects.BackgroundLost();
+            this._background = new objects.BackgroundOver();
             this._lostLabel = new objects.Label("You lost all your money", "60px", "Consolas", "#FFFFFF", 320, 240, true);
             this._startButton = new objects.Button("startButton", 320, 360, true);
             this.Main();

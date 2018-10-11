@@ -9,7 +9,9 @@
     let currentState:config.Scene;
 
     let assetManifest = [
-        {id:"background", src:"./Assets/Images/background.jpg"},
+        {id:"backgroundStart", src:"./Assets/Images/backgroundStart.jpg"},
+        {id:"backgroundPlay", src:"./Assets/Images/backgroundPlay.jpg"},
+        {id:"backgroundOver", src:"./Assets/Images/backgroundOver.jpg"},
         {id:"startButton", src:"./Assets/Images/startButton.png"},
         {id:"mask", src:"./Assets/Images/mask.png"},
         {id:"ocean", src:"./Assets/Images/ocean.gif"},
@@ -31,7 +33,6 @@
         {id:"buttonSpin", src:"./Assets/Images/buttonSpin.png"},
         {id:"buttonReset", src:"./Assets/Images/buttonReset.png"},
         {id:"buttonExit", src:"./Assets/Images/buttonExit.png"},
-        {id:"backgroundLost", src:"./Assets/Images/lost.jpg"},
     ];
 
     function Init():void {

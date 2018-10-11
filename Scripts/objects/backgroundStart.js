@@ -1,26 +1,18 @@
-module objects {
-    export class Background extends objects.GameObject {
-        // private
-        private _rotationSpeed:number;
-
+var objects;
+(function (objects) {
+    class BackgroundStart extends objects.GameObject {
         // public
-
         // contructor
-
         constructor() {
-            super("background");
-
+            super("backgroundStart");
             this.Start();
         }
-
         // private methods
-
-        private _rotate():void {
-            this.rotation += this._rotationSpeed
+        _rotate() {
+            this.rotation += this._rotationSpeed;
         }
-
         // public methods
-        public Reset():void {
+        Reset() {
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
             this.scaleX = 1.3;
@@ -29,17 +21,15 @@ module objects {
             this.x = config.SCREEN_WIDTH / 2;
             this._rotationSpeed = 0.04;
         }
-
-        public Start():void {
+        Start() {
             this.Reset();
         }
-
-        public Update():void {
+        Update() {
             this._rotate();
         }
-
-        public Destroy():void {
-            
+        Destroy() {
         }
     }
-}
+    objects.BackgroundStart = BackgroundStart;
+})(objects || (objects = {}));
+//# sourceMappingURL=backgroundStart.js.map

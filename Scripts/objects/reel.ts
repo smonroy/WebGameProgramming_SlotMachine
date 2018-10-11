@@ -42,6 +42,7 @@ module objects {
         }
 
         public Reset():void {
+            this.image = managers.Game.assetMnager.getResult("blank") as HTMLCanvasElement;
         }
 
         public Start():void {

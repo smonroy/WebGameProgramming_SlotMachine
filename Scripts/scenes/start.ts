@@ -2,7 +2,7 @@ module scenes {
     export class Start extends objects.Scene{
 
         private _welcomeLabel:objects.Label;
-        private _backgound:objects.Background;
+        private _backgound:objects.BackgroundStart;
         private _startButton:objects.Button;
 
         constructor() {
@@ -12,7 +12,7 @@ module scenes {
         }
 
         public Start():void {
-            this._backgound = new objects.Background();
+            this._backgound = new objects.BackgroundStart();
             this._welcomeLabel = new objects.Label("Slot Machine", "60px", "Consolas", "#000000", 320, 240, true);
             this._startButton = new objects.Button("startButton", 320, 360, true);
             this.Main();

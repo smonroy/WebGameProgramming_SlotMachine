@@ -33,6 +33,7 @@ var objects;
             }
         }
         Reset() {
+            this.image = managers.Game.assetMnager.getResult("blank");
         }
         Start() {
             this.Reset();

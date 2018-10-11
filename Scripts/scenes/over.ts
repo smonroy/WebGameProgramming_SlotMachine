@@ -2,7 +2,7 @@ module scenes {
     export class Over extends objects.Scene{
 
         private _lostLabel:objects.Label;
-        private _background:objects.BackgroundLost;
+        private _background:objects.BackgroundOver;
         private _startButton:objects.Button;
 
         constructor() {
@@ -12,7 +12,7 @@ module scenes {
         }
 
         public Start():void {
-            this._background = new objects.BackgroundLost();
+            this._background = new objects.BackgroundOver();
             this._lostLabel = new objects.Label("You lost all your money", "60px", "Consolas", "#FFFFFF", 320, 240, true);
             this._startButton = new objects.Button("startButton", 320, 360, true);
             this.Main();

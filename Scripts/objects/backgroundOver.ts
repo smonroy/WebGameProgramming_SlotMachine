@@ -1,35 +1,45 @@
-var objects;
-(function (objects) {
-    class BackgroundLost extends objects.GameObject {
+module objects {
+    export class BackgroundOver extends objects.GameObject {
+        // private
+        private _rotationSpeed:number;
+
         // public
+
         // contructor
+
         constructor() {
-            super("backgroundLost");
+            super("backgroundOver");
+
             this.Start();
         }
+
         // private methods
-        _rotate() {
-            this.rotation += this._rotationSpeed;
+
+        private _rotate():void {
+            this.rotation += this._rotationSpeed
         }
+
         // public methods
-        Reset() {
+        public Reset():void {
             this.regX = this.HalfWidth;
             this.regY = this.HalfHeight;
             this.scaleX = 1.3;
             this.scaleY = 1.3;
             this.y = config.SCREEN_HEIGHT / 2;
             this.x = config.SCREEN_WIDTH / 2;
-            this._rotationSpeed = 0.04;
+            this._rotationSpeed = -2;
         }
-        Start() {
+
+        public Start():void {
             this.Reset();
         }
-        Update() {
+
+        public Update():void {
             this._rotate();
         }
-        Destroy() {
+
+        public Destroy():void {
+            
         }
     }
-    objects.BackgroundLost = BackgroundLost;
-})(objects || (objects = {}));
-//# sourceMappingURL=backgroundLost.js.map
+}
