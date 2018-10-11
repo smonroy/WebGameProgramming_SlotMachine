@@ -31,7 +31,8 @@ var scenes;
             this._label_Money.SetText(this._playerMoney.toString());
             this._label_Winning.SetText((this._winningMoney > 0 ? "+" : "") + this._winningMoney.toString());
             this._label_Winning.color = this._winningMoney < 0 ? "#FF0000" : "#00FF00";
-            this._label_Jackpot.SetText("Jackpot: " + this._jackpot.toString());
+            this._label_Jackpot.SetText((this._wonjackpot ? "Jackpot win!" : "Jackpot: " + this._jackpot.toString()));
+            this._label_Jackpot.color = this._wonjackpot ? "#00FF00" : "#FFFF00";
             this._button_0.SetEnable(this._playerBet > 0);
             this._button_1.SetEnable(this._playerMoney >= this._playerBet + 1);
             this._button_5.SetEnable(this._playerMoney >= this._playerBet + 5);
@@ -57,9 +58,11 @@ var scenes;
             if (rnd1 == rnd2) {
                 let jackpotMoney = this._jackpot;
                 this._jackpot = 1000;
+                this._wonjackpot = true;
                 return jackpotMoney;
             }
             else {
+                this._wonjackpot = false;
                 return 0;
             }
         }
@@ -137,6 +140,7 @@ var scenes;
         Reset() {
             this._playerMoney = 500;
             this._jackpot = 5000;
+            this._wonjackpot = false;
             this._playerBet = 0;
             this._winningMoney = 0;
             this._reel1.Reset();

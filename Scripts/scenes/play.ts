@@ -11,6 +11,7 @@ module scenes {
         private _playerBet:number;
         private _jackpot:number;
         private _winningMoney:number;
+        private _wonjackpot:boolean;
 
         private _label_Money:objects.Label;
         private _label_Bet:objects.Label;
@@ -60,7 +61,8 @@ module scenes {
             this._label_Money.SetText(this._playerMoney.toString());
             this._label_Winning.SetText((this._winningMoney > 0 ? "+":"") + this._winningMoney.toString());
             this._label_Winning.color = this._winningMoney < 0 ? "#FF0000" : "#00FF00";
-            this._label_Jackpot.SetText("Jackpot: " + this._jackpot.toString());
+            this._label_Jackpot.SetText((this._wonjackpot ? "Jackpot win!" : "Jackpot: " + this._jackpot.toString()));
+            this._label_Jackpot.color = this._wonjackpot ? "#00FF00" : "#FFFF00";
             this._button_0.SetEnable(this._playerBet > 0);
             this._button_1.SetEnable(this._playerMoney >= this._playerBet + 1);
             this._button_5.SetEnable(this._playerMoney >= this._playerBet + 5);
@@ -88,8 +90,10 @@ module scenes {
             if(rnd1 == rnd2) {
                 let jackpotMoney:number = this._jackpot;
                 this._jackpot = 1000;
+                this._wonjackpot = true;
                 return jackpotMoney;
             } else {
+                this._wonjackpot = false;
                 return 0;
             }
         }
@@ -154,6 +158,7 @@ module scenes {
         public Reset():void {
             this._playerMoney = 500;
             this._jackpot = 5000;
+            this._wonjackpot = false;
             this._playerBet = 0;
             this._winningMoney = 0;
             this._reel1.Reset();
